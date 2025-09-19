@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TRB Tecnologia Automotiva - Encontre os melhores veículos e leads qualificados para negócios automotivos">
+  <title>TRB - Tecnologia Automotiva</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #00ff99;
+      --secondary-color: #00cc7a;
+      --dark-bg: #000;
+      --darker-bg: #111;
+      --card-bg: #1a1a1a;
+      --text-color: #f0f0f0;
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background-color: var(--dark-bg);
+      color: var(--text-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    
+    /* Header melhorado */
+    header {
+      background: linear-gradient(to right, var(--darker-bg), #222);
+      padding: 20px 0;
+      box-shadow: 0 4px 12px rgba(0, 255, 153, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-text {
+      font-size: 32px;
+      font-weight: bold;
+      color: var(--primary-color);
+      text-shadow: 0 0 10px rgba(0, 255, 153, 0.5);
+    }
+    
+    .logo-subtitle {
+      font-size: 14px;
+      margin-left: 10px;
+      color: #fff;
+    }
+    
+    /* Barra de pesquisa melhorada */
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin: 25px 0;
+      position: relative;
+    }
+    
+    .search-box {
+      display: flex;
+      width: 100%;
+      max-width: 600px;
+      position: relative;
+    }
+    
+    .search-input {
+      flex: 1;
+      padding: 15px 20px;
+      border: none;
+      border-radius: 50px;
+      background: var(--darker-bg);
+      color: var(--text-color);
+      font-size: 16px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: var(--transition);
+    }
+    
+    .search-input:focus {
+      outline: none;
+      box-shadow: 0 4px 15px rgba(0, 255, 153, 0.3);
+    }
+    
+    .search-button {
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      bottom: 5px;
+      padding: 0 20px;
+      background: var(--primary-color);
+      color: #000;
+      border: none;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .search-button:hover {
+      background: var(--secondary-color);
+      transform: translateY(-2px);
+    }
+    
+    /* Ticker de leads melhorado */
+    .leads-ticker {
+      background: linear-gradient(90deg, #111, #222, #111);
+      padding: 12px 0;
+      overflow: hidden;
+      position: relative;
+      border-top: 1px solid var(--primary-color);
+      border-bottom: 1px solid var(--primary-color);
+      margin-bottom: 20px;
+    }
+    
+    .ticker-content {
+      display: flex;
+      animation: ticker-scroll 40s linear infinite;
+      white-space: nowrap;
+    }
+    
+    .ticker-item {
+      padding: 0 30px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .ticker-item i {
+      color: var(--primary-color);
+      margin-right: 10px;
+    }
+    
+    @keyframes ticker-scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    /* Filtros de marcas - 3 colunas com 5 botões cada */
+    .brands-section {
+      margin: 30px 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: var(--primary-color);
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: var(--primary-color);
+    }
+    
+    .brands-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .brand-button {
+      background: var(--card-bg);
+      border: none;
+      padding: 15px;
+      border-radius: 10px;
+      color: var(--text-color);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      height: 60px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .brand-button:hover {
+      background: var(--primary-color);
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 255, 153, 0.2);
+    }
+    
+    /* Botões de ação */
+    .action-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px auto;
+      flex-wrap: wrap;
+    }
+    
+    .clear-button {
+      padding: 12px 25px;
+      background: transparent;
+      color: #ff5555;
+      border: 2px solid #ff5555;
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .clear-button:hover {
+      background: #ff5555;
+      color: white;
+    }
+    
+    .export-button {
+      padding: 12px 25px;
+      background: transparent;
+      color: var(--primary-color);
+      border: 2px solid var(--primary-color);
+      border-radius: 50px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .export-button:hover {
+      background: var(--primary-color);
+      color: #000;
+    }
+    
+    /* Área de resultados */
+    .results-section {
+      margin: 40px 0;
+    }
+    
+    .results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .results-count {
+      font-size: 16px;
+      color: #aaa;
+    }
+    
+    .results-container {
+      background: var(--darker-bg);
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .loading-spinner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(0, 255, 153, 0.2);
+      border-radius: 50%;
+      border-top-color: var(--primary-color);
+      animation: spin 1s ease-in-out infinite;
+      margin-bottom: 20px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .lead-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      border-left: 4px solid var(--primary-color);
+    }
+    
+    .lead-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 255, 153, 0.1);
+    }
+    
+    .lead-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+    }
+    
+    .lead-field {
+      display: flex;
+      align-items: center;
+    }
+    
+    .lead-field i {
+      color: var(--primary-color);
+      margin-right: 8px;
+      width: 20px;
+    }
+    
+    .status-badge {
+      background: rgba(0, 255, 153, 0.2);
+      color: var(--primary-color);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-left: 10px;
+    }
+    
+    .source-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+    
+    .source-olx {
+      background: rgba(0, 100, 200, 0.3);
+      color: #4da6ff;
+    }
+    
+    .source-icarros {
+      background: rgba(200, 50, 0, 0.3);
+      color: #ff704d;
+    }
+    
+    .source-webmotors {
+      background: rgba(200, 0, 100, 0.3);
+      color: #ff4d94;
+    }
+    
+    .source-facebook {
+      background: rgba(0, 100, 200, 0.3);
+      color: #4d94ff;
+    }
+    
+    .source-google {
+      background: rgba(200, 0, 0, 0.3);
+      color: #ff4d4d;
+    }
+    
+    /* Footer simplificado conforme solicitado */
+    footer {
+      background: var(--darker-bg);
+      padding: 30px 0;
+      margin-top: 50px;
+      border-top: 1px solid #333;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    
+    .footer-section {
+      flex: 1;
+      min-width: 250px;
+      margin-bottom: 20px;
+    }
+    
+    .footer-title {
+      color: var(--primary-color);
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+    
+    .footer-links a {
+      display: block;
+      color: #ccc;
+      margin-bottom: 8px;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--primary-color);
+    }
+    
+    .copyright {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #333;
+      color: #888;
+      font-size: 14px;
+    }
+    
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .logo {
+        margin-bottom: 15px;
+        justify-content: center;
+      }
+      
+      .brands-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .lead-info {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-content {
+        flex-direction: column;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .clear-button, .export-button {
+        width: 100%;
+        max-width: 250px;
+      }
+    }
+    
+    /* Animações e utilidades */
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0, 255, 153, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(0, 255, 153, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 255, 153, 0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <div class="logo-text">TRB</div>
+          <div class="logo-subtitle">Tecnologia Automotiva</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="search-container">
+      <div class="search-box">
+        <input type="text" class="search-input" id="searchInput" placeholder="Digite o modelo do carro. Ex: Gol 1.0 2015...">
+        <button class="search-button" onclick="pesquisarCarro()">
+          <i class="fas fa-search"></i> Pesquisar
+        </button>
+      </div>
+    </div>
+
+    <div class="leads-ticker">
+      <div class="ticker-content" id="topLeads"></div>
+    </div>
+
+    <section class="brands-section">
+      <h2 class="section-title">Marcas Disponíveis</h2>
+      <div class="brands-grid">
+        <!-- Coluna 1 -->
+        <button class="brand-button" onclick="loadLeads('Jeep')">Jeep</button>
+        <button class="brand-button" onclick="loadLeads('Renault')">Renault</button>
+        <button class="brand-button" onclick="loadLeads('Volkswagen')">Volkswagen</button>
+        <button class="brand-button" onclick="loadLeads('Chevrolet')">Chevrolet</button>
+        <button class="brand-button" onclick="loadLeads('Toyota')">Toyota</button>
+        
+        <!-- Coluna 2 -->
+        <button class="brand-button" onclick="loadLeads('Honda')">Honda</button>
+        <button class="brand-button" onclick="loadLeads('Fiat')">Fiat</button>
+        <button class="brand-button" onclick="loadLeads('Hyundai')">Hyundai</button>
+        <button class="brand-button" onclick="loadLeads('Byd')">BYD</button>
+        <button class="brand-button" onclick="loadLeads('Nissan')">Nissan</button>
+        
+        <!-- Coluna 3 -->
+        <button class="brand-button" onclick="loadLeads('Caoa Chery')">Caoa Chery</button>
+        <button class="brand-button" onclick="loadLeads('Bmw')">BMW</button>
+        <button class="brand-button" onclick="loadLeads('Audi')">Audi</button>
+        <button class="brand-button" onclick="loadLeads('Mercedes')">Mercedes</button>
+        <button class="brand-button" onclick="loadLeads('Peugeot')">Peugeot</button>
+      </div>
+    </section>
+
+    <section class="results-section">
+      <div class="results-header">
+        <h2 class="section-title">Resultados da Pesquisa</h2>
+        <div class="results-count" id="resultsCount"></div>
+      </div>
+      
+      <div class="results-container" id="leads">
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+          <p>Selecione uma marca ou pesquise um carro para ver compradores...</p>
+        </div>
+      </div>
+      
+      <!-- Botões para limpar pesquisas e exportar emails -->
+      <div class="action-buttons" id="actionButtons" style="display: none;">
+        <button class="clear-button" onclick="limparPesquisas()">
+          <i class="fas fa-times"></i> Limpar Pesquisas
+        </button>
+        <button class="export-button" onclick="exportarEmails()">
+          <i class="fas fa-download"></i> Exportar Emails
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3 class="footer-title">TRB Tecnologia Automotiva</h3>
+          <p>Soluções inteligentes para o mercado automotivo</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3 class="footer-title">Contato</h3>
+          <div class="footer-links">
+            <p><i class="fas fa-phone"></i> (91) 9 9127-0169</p>
+            <p><i class="fas fa-envelope"></i> contato@trb.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> Belém-PA</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="copyright">
+        © 2023 TRB Tecnologia Automotiva - Todos os direitos reservados
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const nomes = ["Camila Melo", "João Brito", "Lucas Almeida", "Mariana Costa", "Pedro Santos", "Ana Oliveira", "Rafael Souza", "Juliana Lima", "Thiago Rocha", "Fernanda Dias"];
+    const cidades = ["Belém", "Ananindeua", "Marabá", "Santarém", "Castanhal", "Parauapebas", "Altamira", "Cametá", "Abaetetuba", "Bragança"];
+    const fontes = ["OLX", "iCarros", "WebMotors", "Facebook", "Google"];
+    const dominios = ["gmail.com", "outlook.com", "hotmail.com", "yahoo.com", "icloud.com"];
+    const marcas = ["Jeep", "Renault", "Volkswagen", "Chevrolet", "Toyota", "Honda", "Fiat", "Hyundai", "Byd", "Nissan", "Caoa Chery", "Bmw", "Audi", "Mercedes", "Peugeot"];
+
+    // modelos por marca
+    const modelos = {
+      "Jeep": ["Renegade", "Compass", "Commander", "Grand Cherokee", "Wrangler"],
+      "Renault": ["Kwid", "Duster", "Sandero", "Logan", "Captur"],
+      "Volkswagen": ["Gol", "Polo", "Virtus", "T-Cross", "Saveiro"],
+      "Chevrolet": ["Onix", "Onix Plus", "Tracker", "S10", "Spin"],
+      "Toyota": ["Corolla", "Yaris", "Hilux", "SW4", "Etios"],
+      "Honda": ["Civic", "HR-V", "Fit", "City", "WR-V"],
+      "Fiat": ["Argo", "Mobi", "Cronos", "Strada", "Toro"],
+      "Hyundai": ["HB20", "Creta", "Azera", "Santa Fe", "Tucson"],
+      "Byd": ["Dolphin", "Song Plus", "Seal", "Tang", "Han"],
+      "Nissan": ["Kicks", "Versa", "Frontier", "Sentra", "March"],
+      "Caoa Chery": ["Tiggo 5X", "Tiggo 7", "Tiggo 8", "Arrizo 6", "QQ"],
+      "Bmw": ["320i", "X1", "X3", "X5", "M3"],
+      "Audi": ["A3", "A4", "Q3", "Q5", "Q7"],
+      "Mercedes": ["C180", "GLA 200", "GLC 250", "A200", "E250"],
+      "Peugeot": ["208", "2008", "3008", "308", "Partner"]
+    };
+
+    let leadsAtuais = [];
+    let intervaloLeads;
+
+    // Função para gerar email fictício baseado no nome
+    function gerarEmail(nome) {
+      // Remover acentos e caracteres especiais
+      const nomeSemAcentos = nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      
+      // Separar primeiro e último nome
+      const partesNome = nomeSemAcentos.toLowerCase().split(' ');
+      const primeiroNome = partesNome[0];
+      const ultimoNome = partesNome[partesNome.length - 1];
+      
+      // Gerar número aleatório
+      const numeroAleatorio = Math.floor(Math.random() * 9000) + 1000;
+      
+      // Selecionar domínio aleatório
+      const dominio = dominios[Math.floor(Math.random() * dominios.length)];
+      
+      // Criar email (diferentes formatos)
+      const formatos = [
+        `${primeiroNome}.${ultimoNome}${numeroAleatorio}@${dominio}`,
+        `${primeiroNome}${ultimoNome}${numeroAleatorio}@${dominio}`,
+        `${primeiroNome.charAt(0)}${ultimoNome}${numeroAleatorio}@${dominio}`,
+        `${primeiroNome}_${ultimoNome}@${dominio}`
+      ];
+      
+      return formatos[Math.floor(Math.random() * formatos.length)];
+    }
+
+    // Função para gerar 50 leads fictícios para exportação
+    function gerarLeadsParaExportar() {
+      let leads = [];
+      for (let i = 0; i < 50; i++) {
+        const nome = nomes[Math.floor(Math.random() * nomes.length)];
+        const cidade = cidades[Math.floor(Math.random() * cidades.length)];
+        const marca = marcas[Math.floor(Math.random() * marcas.length)];
+        const modelo = modelos[marca][Math.floor(Math.random() * modelos[marca].length)];
+        const ano = Math.floor(Math.random() * (2025 - 2015 + 1)) + 2015;
+        const score = Math.floor(Math.random() * 200) + 800;
+        const fonte = fontes[Math.floor(Math.random() * fontes.length)];
+        const email = gerarEmail(nome);
+        
+        leads.push({
+          nome,
+          email,
+          local: cidade,
+          marca: `${marca} ${modelo} ${ano}`,
+          score,
+          preAprovado: "Sim",
+          fonte
+        });
+      }
+      return leads;
+    }
+
+    // Função para exportar emails para CSV
+    function exportarEmails() {
+      const leads = gerarLeadsParaExportar();
+      
+      // Criar cabeçalho CSV
+      let csvContent = "Nome,Email,Local,Marca,Score,PreAprovado,Fonte\n";
+      
+      // Adicionar dados dos leads
+      leads.forEach(lead => {
+        csvContent += `"${lead.nome}","${lead.email}","${lead.local}","${lead.marca}",${lead.score},${lead.preAprovado},"${lead.fonte}"\n`;
+      });
+      
+      // Criar blob e link para download
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      const date = new Date();
+      const dateStr = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`;
+      
+      link.setAttribute("href", url);
+      link.setAttribute("download", `resultados_pesquisa_${dateStr}.csv`);
+      link.style.visibility = 'hidden';
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // função gerar leads
+    function gerarLeads(marca) {
+      let leads = [];
+      for (let i = 0; i < 20; i++) {
+        const nome = nomes[Math.floor(Math.random() * nomes.length)];
+        const cidade = cidades[Math.floor(Math.random() * cidades.length)];
+        const modelo = modelos[marca][Math.floor(Math.random() * modelos[marca].length)];
+        const ano = Math.floor(Math.random() * (2025 - 2015 + 1)) + 2015;
+        const score = Math.floor(Math.random() * 200) + 800;
+        const fonte = fontes[Math.floor(Math.random() * fontes.length)];
+        const email = gerarEmail(nome);
+        
+        leads.push({
+          nome,
+          cidade,
+          modelo: `${modelo} ${ano}`,
+          score,
+          marca,
+          fonte,
+          email
+        });
+      }
+      return leads;
+    }
+
+    function loadLeads(marca) {
+      // Limpar intervalo anterior se existir
+      if (intervaloLeads) {
+        clearInterval(intervaloLeads);
+      }
+      
+      document.getElementById("leads").innerHTML = `
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+          <p>Carregando clientes interessados em ${marca}...</p>
+        </div>
+      `;
+      
+      document.getElementById("resultsCount").textContent = "";
+      document.getElementById("actionButtons").style.display = "flex";
+      
+      setTimeout(() => {
+        leadsAtuais = gerarLeads(marca);
+        exibirLeads(leadsAtuais, `Clientes interessados em ${marca}`);
+      }, 1500);
+    }
+
+    function exibirLeads(leads, titulo) {
+      const container = document.getElementById("leads");
+      const resultsCount = document.getElementById("resultsCount");
+      
+      resultsCount.textContent = `${leads.length} resultados encontrados`;
+      
+      if (leads.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 40px;">
+            <i class="fas fa-search" style="font-size: 48px; color: #666; margin-bottom: 20px;"></i>
+            <h3>Nenhum resultado encontrado</h3>
+            <p>Tente alterar os termos da sua pesquisa</p>
+          </div>
+        `;
+        return;
+      }
+      
+      let html = `
+        <div class="results-header">
+          <h3>${titulo}</h3>
+        </div>
+      `;
+      
+      leads.forEach(lead => {
+        // Determinar a classe CSS com base na fonte
+        let fonteClass = "";
+        switch(lead.fonte) {
+          case "OLX":
+            fonteClass = "source-olx";
+            break;
+          case "iCarros":
+            fonteClass = "source-icarros";
+            break;
+          case "WebMotors":
+            fonteClass = "source-webmotors";
+            break;
+          case "Facebook":
+            fonteClass = "source-facebook";
+            break;
+          case "Google":
+            fonteClass = "source-google";
+            break;
+        }
+        
+        html += `
+          <div class="lead-card fade-in">
+            <div class="lead-info">
+              <div class="lead-field">
+                <i class="fas fa-user"></i>
+                <span>${lead.nome}</span>
+                <span class="source-badge ${fonteClass}">${lead.fonte}</span>
+              </div>
+              <div class="lead-field">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>${lead.cidade}</span>
+              </div>
+              <div class="lead-field">
+                <i class="fas fa-car"></i>
+                <span>${lead.modelo}</span>
+              </div>
+              <div class="lead-field">
+                <i class="fas fa-envelope"></i>
+                <span>${lead.email}</span>
+              </div>
+              <div class="lead-field">
+                <i class="fas fa-chart-line"></i>
+                <span>Score: ${lead.score}</span>
+                <span class="status-badge">Pré-aprovado</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
+    }
+
+    // Pesquisa de carro
+    function pesquisarCarro() {
+      // Limpar intervalo de leads por marca se existir
+      if (intervaloLeads) {
+        clearInterval(intervaloLeads);
+      }
+      
+      let termo = document.getElementById("searchInput").value.trim();
+      if (!termo) {
+        alert("Digite o modelo do carro para pesquisar.");
+        return;
+      }
+      
+      document.getElementById("leads").innerHTML = `
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+          <p>Buscando clientes interessados em ${termo}...</p>
+        </div>
+      `;
+      
+      document.getElementById("resultsCount").textContent = "";
+      document.getElementById("actionButtons").style.display = "flex";
+      
+      setTimeout(() => {
+        let qtd = Math.floor(Math.random() * 4) + 2; // entre 2 e 5 clientes
+        let leads = [];
+        
+        for (let i = 0; i < qtd; i++) {
+          const nome = nomes[Math.floor(Math.random() * nomes.length)];
+          const cidade = cidades[Math.floor(Math.random() * cidades.length)];
+          const score = Math.floor(Math.random() * 200) + 800;
+          const fonte = fontes[Math.floor(Math.random() * fontes.length)];
+          const email = gerarEmail(nome);
+          
+          leads.push({
+            nome,
+            cidade,
+            modelo: termo,
+            score,
+            fonte,
+            email
+          });
+        }
+        
+        exibirLeads(leads, `Resultados para: ${termo}`);
+      }, 1500);
+    }
+
+    // Função para limpar pesquisas
+    function limparPesquisas() {
+      document.getElementById("leads").innerHTML = `
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+          <p>Selecione uma marca ou pesquise um carro para ver compradores...</p>
+        </div>
+      `;
+      
+      document.getElementById("resultsCount").textContent = "";
+      document.getElementById("searchInput").value = "";
+      document.getElementById("actionButtons").style.display = "none";
+      
+      if (intervaloLeads) {
+        clearInterval(intervaloLeads);
+      }
+    }
+
+    // Ticker de leads superior
+    function gerarTopLeads() {
+      let nome = nomes[Math.floor(Math.random() * nomes.length)];
+      let cidade = cidades[Math.floor(Math.random() * cidades.length)];
+      let marcas = Object.keys(modelos);
+      let marca = marcas[Math.floor(Math.random() * marcas.length)];
+      let carro = modelos[marca][Math.floor(Math.random() * modelos[marca].length)];
+      let ano = Math.floor(Math.random() * (2025 - 2015 + 1)) + 2015;
+      
+      return `<div class="ticker-item">
+                <i class="fas fa-check-circle"></i>
+                ${nome} - ${cidade} - ${carro} ${ano} ✅ Pré-aprovado
+              </div>`;
+    }
+
+    function atualizarTopLeads() {
+      let container = document.getElementById("topLeads");
+      container.innerHTML = "";
+      
+      for (let i = 0; i < 20; i++) {
+        container.innerHTML += gerarTopLeads();
+      }
+    }
+
+    // Permitir pesquisa com Enter
+    document.getElementById("searchInput").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") {
+        pesquisarCarro();
+      }
+    });
+
+    // Inicializar o ticker
+    setInterval(atualizarTopLeads, 2000);
+    atualizarTopLeads();
+  </script>
+</body>
+</html>
